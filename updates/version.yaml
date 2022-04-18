@@ -1,0 +1,14 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table yfktn_berikanarahan_'
+    - builder_table_create_yfktn_berikanarahan.php
+1.0.3:
+    - 'Created table yfktn_berikanarahan_personil'
+    - builder_table_create_yfktn_berikanarahan_personil.php
+1.0.4:
+    - 'Created table yfktn_berikanarahan_pesan'
+    - builder_table_create_yfktn_berikanarahan_pesan.php
+1.0.5:
+    - 'Updated table yfktn_berikanarahan_ tambahkan berdasarkan supaya bs langsung menggunakan opsi morph'
+    - builder_table_update_yfktn_berikanarahan.php

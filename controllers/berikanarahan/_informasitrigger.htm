@@ -1,0 +1,34 @@
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="popup">&times;</button>
+    <h4 class="modal-title">
+        Informasi
+    </h4>
+</div>
+<div class="modal-body" id="informasiTrigger">
+    <table class="table">
+        <tbody>
+            <?php 
+            $tampilSingkat = $record->getArrayAssocTampilanSingkat();
+            foreach($tampilSingkat as $label=>$nilai): ?>
+            <tr>
+                <td><?= $label ?></td>
+                <?php if(is_array($nilai)): ?>
+                    <td><?= implode("<br>", $nilai) ?></td>
+                <?php else: ?>
+                    <td><?= $nilai ?></td>
+                <?php endif; ?>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <!-- Popup action buttons go here -->
+    <button
+        type="button"
+        class="btn btn-default"
+        data-dismiss="popup">
+        Tutup
+    </button>
+</div>

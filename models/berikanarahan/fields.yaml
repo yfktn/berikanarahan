@@ -1,0 +1,31 @@
+fields:
+    berdasarkan_str:
+        label: 'Trigger Arahan'
+        showSearch: true
+        span: full
+        required: 1
+        options: loadPilihanTriggerNya
+        type: dropdown
+        comment: 'Pilih sumber arahan.'
+        placeholder: 'Sumber arahan'
+    _terpilih:
+        dependsOn: berdasarkan_str
+        span: full
+        path: $/yfktn/berikanarahan/models/berikanarahan/_berikan_tampilan_trigger_terpilih.htm
+        type: partial
+    arahan:
+        label: 'Arahan Utama'
+        size: small
+        span: full
+        placeholder: 'Ketikkan arahan utama untuk personil.'
+        required: 1
+        type: richeditor
+        comment: 'Ketikkan arahan utama untuk personil yang ditugaskan.'
+    deadline:
+        label: Deadline
+        mode: date
+        minDate: now
+        format: d-m-Y
+        span: auto
+        type: datepicker
+        comment: 'Berikan deadline arahan ini.'

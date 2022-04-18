@@ -1,0 +1,21 @@
+plugin:
+    name: 'yfktn.berikanarahan::lang.plugin.name'
+    description: 'yfktn.berikanarahan::lang.plugin.description'
+    author: yfktn
+    icon: oc-icon-binoculars
+    homepage: ''
+permissions:
+    yfktn.berikan_arahan.manajer:
+        tab: 'Pemberian Arahan'
+        label: 'Manajer Pemberian Arahan'
+    yfktn.berikan_arahan.penunjukan_personil:
+        tab: 'Pemberian Arahan'
+        label: 'Memilih Personil Untuk Menyelesaikan'
+navigation:
+    main-menu-beriarah:
+        label: Pengarahan
+        url: yfktn/berikanarahan/berikanarahan
+        icon: icon-bell
+        permissions:
+            - yfktn.berikan_arahan.manajer
+            - yfktn.berikan_arahan.penunjukan_personil

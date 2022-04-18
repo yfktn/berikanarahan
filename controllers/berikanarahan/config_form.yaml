@@ -1,0 +1,10 @@
+name: BerikanArahan
+form: $/yfktn/berikanarahan/models/berikanarahan/fields.yaml
+modelClass: Yfktn\BerikanArahan\Models\BerikanArahan
+defaultRedirect: yfktn/berikanarahan/berikanarahan
+create:
+    redirect: 'yfktn/berikanarahan/berikanarahan/update/:id'
+    redirectClose: yfktn/berikanarahan/berikanarahan
+update:
+    redirect: yfktn/berikanarahan/berikanarahan
+    redirectClose: yfktn/berikanarahan/berikanarahan
