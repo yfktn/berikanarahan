@@ -1,0 +1,7 @@
+columns:
+    personil_id:
+        label: Login
+        type: text
+        relation: personil
+        searchable: true
+        select: concat(login, ' (', email, ')') 

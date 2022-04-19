@@ -7,10 +7,16 @@ use Illuminate\Support\Facades\Log;
 
 class BerikanArahan extends Controller
 {
-    public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
+    public $implement = [
+        'Backend\Behaviors\ListController',
+        'Backend\Behaviors\FormController',
+        'Backend\Behaviors\RelationController'
+    ];
     
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
+    public $relationConfig = 'config_relation.yaml';
+
 
     public $requiredPermissions = [
         'yfktn.berikan_arahan.manajer',
@@ -23,11 +29,23 @@ class BerikanArahan extends Controller
         BackendMenu::setContext('Yfktn.BerikanArahan', 'main-menu-beriarah');
     }
 
+    /**
+     * Siapkan user yang membuat ini!
+     * @param mixed $model 
+     * @return void 
+     */
     public function formBeforeCreate($model)
     {
         $model->pengarah_id = $this->user->id;
     }
 
+    /**
+     * Tampilkan informasi yang menjadi sumber referensi adanya arahan.
+     * Pastikan bahwa model yang dijadikan sebagai sumber referensi melakukan
+     * implementasi terhadap InterfaceTampilanSingkatTrigger!
+     * @return mixed 
+     * @throws Exception 
+     */
     public function onTampilkanInformasiTrigger()
     {
         $errorStr = "";
@@ -50,6 +68,7 @@ class BerikanArahan extends Controller
 
     /**
      * Jangan enabled kan beberapa form tapi bisa untuk form yang lain!
+     * Sesuaikan dengan siapa yang login!
      * @param mixed $form 
      * @param mixed $fields 
      * @return void 

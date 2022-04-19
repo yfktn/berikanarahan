@@ -25,6 +25,13 @@ class BerikanArahan extends Model
         'berdasarkan' => [],
     ];
 
+    public $hasMany = [
+        'personilDitugaskan' => [
+            'Yfktn\BerikanArahan\Models\PersonilDitugaskan', 
+            'key' => 'arahan_id'
+        ]
+    ];
+
     /**
      * @var array Validation rules
      */

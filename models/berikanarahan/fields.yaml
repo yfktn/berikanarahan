@@ -13,19 +13,28 @@ fields:
         span: full
         path: $/yfktn/berikanarahan/models/berikanarahan/_berikan_tampilan_trigger_terpilih.htm
         type: partial
-    arahan:
-        label: 'Arahan Utama'
-        size: small
-        span: full
-        placeholder: 'Ketikkan arahan utama untuk personil.'
-        required: 1
-        type: richeditor
-        comment: 'Ketikkan arahan utama untuk personil yang ditugaskan.'
-    deadline:
-        label: Deadline
-        mode: date
-        minDate: now
-        format: d-m-Y
-        span: auto
-        type: datepicker
-        comment: 'Berikan deadline arahan ini.'
+tabs:
+    fields:
+        arahan:
+            label: 'Arahan Utama'
+            size: small
+            span: full
+            placeholder: 'Ketikkan arahan utama untuk personil.'
+            required: 1
+            type: richeditor
+            comment: 'Ketikkan arahan utama untuk personil yang ditugaskan.'
+            tab: Arahan
+        deadline:
+            label: Deadline
+            mode: date
+            minDate: now
+            format: d-m-Y
+            span: auto
+            type: datepicker
+            comment: 'Berikan deadline arahan ini.'
+            tab: Arahan
+        personilDitugaskan:
+            span: full
+            path: $/yfktn/berikanarahan/models/berikanarahan/_load_personil_ditugaskan.htm
+            type: partial
+            tab: Personil

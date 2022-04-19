@@ -1,0 +1,9 @@
+fields:
+    personil_id:
+        label: 'Pilihan Personil'
+        emptyOption: 'Pilih Personil'
+        showSearch: true
+        span: full
+        type: dropdown
+        options: loadUserIdNya
+        comment: 'Pilih personil yang ditugaskan.'
