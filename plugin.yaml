@@ -19,3 +19,8 @@ navigation:
         permissions:
             - yfktn.berikan_arahan.manajer
             - yfktn.berikan_arahan.penunjukan_personil
+        sideMenu:
+            sm-pesan:
+                label: Proses
+                url: yfktn/berikanarahan/pesan
+                icon: icon-pencil-square

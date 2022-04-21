@@ -1,0 +1,12 @@
+list: $/yfktn/berikanarahan/models/pesan/columns.yaml
+modelClass: Yfktn\BerikanArahan\Models\Pesan
+title: Pesan
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'yfktn/berikanarahan/pesan/update/:id'

@@ -1,0 +1,8 @@
+fields:
+    pesan:
+        label: Pesan
+        size: small
+        span: full
+        required: 1
+        type: richeditor
+        comment: 'Ketikkan pesan terkait progress penanganan terbaru, atau hal lainnya yang perlu disampaikan.'

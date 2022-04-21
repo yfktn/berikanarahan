@@ -36,5 +36,8 @@ tabs:
         personilDitugaskan:
             span: full
             path: $/yfktn/berikanarahan/models/berikanarahan/_load_personil_ditugaskan.htm
+            context:
+                - update
+                - preview
             type: partial
             tab: Personil

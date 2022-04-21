@@ -1,0 +1,9 @@
+columns:
+    pesan:
+        label: Pesan
+        type: text
+        searchable: true
+    created_at:
+        label: Dibuat
+        type: datetime
+        format: 'd-m-Y H:i'
