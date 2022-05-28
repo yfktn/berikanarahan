@@ -7,7 +7,7 @@ class Pesan extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
     
-    public $listConfig = 'config_list.yaml';
+    public $listConfig = 'config_list_arahan.yaml';
     public $formConfig = 'config_form.yaml';
 
     public function __construct()

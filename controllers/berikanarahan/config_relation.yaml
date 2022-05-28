@@ -2,7 +2,21 @@ personilDitugaskan:
   label: 'Personil Ditugaskan'
   view: 
     list: $/yfktn/berikanarahan/models/personilditugaskan/columns.yaml
-    toolbarButtons: create|delete
+    toolbarButtons: 
+      create: 'Tambahkan Personil Ditugaskan'
+      delete: 'Hapus Personil'
   manage: 
     form: $/yfktn/berikanarahan/models/personilditugaskan/fields.yaml
     list: $/yfktn/berikanarahan/models/personilditugaskan/columns.yaml
+progressPenanganan:
+  label: 'Progress Penanganan'
+  emptyMessage: 'Belum ada progress ...'
+  view: 
+    list: $/yfktn/berikanarahan/models/pesan/columns.yaml
+    toolbarButtons: 
+      create: 'Catatkan Progress'
+      delete: 'Hapus Progress'
+  manage: 
+    title: 'Catatkan Progress'
+    form: $/yfktn/berikanarahan/models/pesan/fields.yaml
+    list: $/yfktn/berikanarahan/models/pesan/columns.yaml

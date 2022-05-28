@@ -1,0 +1,12 @@
+list: $/yfktn/berikanarahan/models/berikanarahan/columns.yaml
+modelClass: Yfktn\BerikanArahan\Models\BerikanArahan
+title: Daftar Arahan
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: false
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'yfktn/berikanarahan/berikanarahan/update/:id'

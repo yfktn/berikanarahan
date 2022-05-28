@@ -41,3 +41,11 @@ tabs:
                 - preview
             type: partial
             tab: Personil
+        progressPenanganan:
+            span: full
+            path: $/yfktn/berikanarahan/models/berikanarahan/_load_progress_penanganan.htm
+            context:
+                - update
+                - preview
+            type: partial
+            tab: Progress

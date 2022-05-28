@@ -12,6 +12,7 @@ class BerikanArahan extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     
+    const STATUS_MENUNGGU_MULAI = 'MENUNGGU_MULAI';
     const STATUS_LAGI_PROSES = 'LAGI_PROSES';
     const STATUS_SELESAI = 'SELESAI';
     const STATUS_DITUTUP = 'DITUTUP';
@@ -29,7 +30,11 @@ class BerikanArahan extends Model
         'personilDitugaskan' => [
             'Yfktn\BerikanArahan\Models\PersonilDitugaskan', 
             'key' => 'arahan_id'
-        ]
+        ],
+        'progressPenanganan' => [
+            'Yfktn\BerikanArahan\Models\Pesan', 
+            'key' => 'arahan_id'
+        ],
     ];
 
     /**

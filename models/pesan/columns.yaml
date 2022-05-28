@@ -1,8 +1,14 @@
 columns:
     pesan:
-        label: Pesan
-        type: text
+        label: Catatan Progress
+        type: partial
+        path: $/yfktn/berikanarahan/models/pesan/_tampilkan_pesan.htm
+        sortable: false
         searchable: true
+    personil_nya:
+        label: Personil
+        relation: personil
+        select: concat(login, ' (', email, ')') 
     created_at:
         label: Dibuat
         type: datetime

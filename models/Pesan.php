@@ -1,5 +1,6 @@
 <?php namespace Yfktn\BerikanArahan\Models;
 
+use Backend\Facades\BackendAuth;
 use Model;
 
 /**
@@ -28,6 +29,13 @@ class Pesan extends Model
     ];
 
     public $attachMany = [
-        'daftarDokumen' => 'System\Models\File'
+        'daftarDokumenLampiran' => 'System\Models\File'
     ];
+
+    public function beforeCreate()
+    {
+        // pastikan sebelum ini dibuat baru, tambahkan kode personil
+        // ini merupakan user backend yang login
+        $this->personil_id = BackendAuth::getUser()->id;
+    }
 }

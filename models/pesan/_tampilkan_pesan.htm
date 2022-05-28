@@ -1,0 +1,9 @@
+<?= Html::clean($record->pesan) ?>
+<?php if($record->daftarDokumenLampiran->count() > 0): ?>
+<hr>
+<ul class="list-inline">
+    <?php foreach($record->daftarDokumenLampiran as $lampiran): ?>
+        <i class="icon-cloud-download"></i>&nbsp;<a target="_blank" href="<?= $lampiran->getPath() ?>"><?= $lampiran->file_name ?></a> 
+    <?php endforeach ?>
+</ul>
+<?php endif ?>
