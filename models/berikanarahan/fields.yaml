@@ -49,3 +49,14 @@ tabs:
                 - preview
             type: partial
             tab: Progress
+        status:
+            permissions: yfktn.berikan_arahan.manajer
+            span: full
+            type: radio
+            default: guests
+            tab: Status
+            comment: Pilih status penanganan terhadap arahan ini.
+            options:
+                LAGI_PROSES: Lagi Proses
+                STATUS_SELESAI: Proses Selesai
+                STATUS_DITUTUP: Dihentikan

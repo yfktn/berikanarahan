@@ -3,7 +3,9 @@
 use Backend\Facades\BackendAuth;
 use Model;
 use Db;
+use Flash;
 use Illuminate\Support\Facades\Log;
+use ApplicationException;
 
 /**
  * Model
@@ -51,7 +53,6 @@ class BerikanArahan extends Model
      * @param mixed $fieldName 
      * @param mixed $value 
      * @param mixed $formData 
-     * @return void 
      */
     public function loadPilihanTriggerNya($value, $fieldName, $formData)
     {
@@ -76,6 +77,11 @@ class BerikanArahan extends Model
         return $hasil;
     }
 
+    public function loadPilihanStatusnya($value, $fieldName, $formData)
+    {
+        
+    }
+
     /**
      * Sebelum di simpan ayo lakukan setting nilai trigger!
      * @return void 
@@ -88,5 +94,21 @@ class BerikanArahan extends Model
             [$this->berdasarkan_id, $ber_type]  = explode("|", $this->berdasarkan_str);
             $this->berdasarkan_type = str_replace(".", "\\", $ber_type); // ingat bahwa kita mengganti tanda / dengan titik
         }
+    }
+
+    public function beforeDelete()
+    {
+        if(!BackendAuth::getUser()->hasPermission(['yfktn.berikan_arahan.manajer'])) {
+            throw new ApplicationException('Hanya manager yang bisa menghapus!');
+            return false;
+        }
+    }
+
+    public function scopeTampilkanDaftarArahanUntukOrangYangLoginIniSaja($query)
+    {
+        $loggedUserId = BackendAuth::getUser()->id;
+        return $query->whereHas('personilDitugaskan', function($query) use($loggedUserId) {
+            $query->where('personil_id', $loggedUserId);
+        });
     }
 }

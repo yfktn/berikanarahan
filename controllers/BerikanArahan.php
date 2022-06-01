@@ -2,8 +2,11 @@
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use BackendAuth;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Yfktn\BerikanArahan\Models\BerikanArahan as ModelsBerikanArahan;
+use Yfktn\BerikanArahan\Widgets\Rptnya;
 
 class BerikanArahan extends Controller
 {
@@ -18,15 +21,19 @@ class BerikanArahan extends Controller
     public $relationConfig = 'config_relation.yaml';
 
 
-    public $requiredPermissions = [
-        'yfktn.berikan_arahan.manajer',
-        'yfktn.berikan_arahan.penunjukan_personil'
-    ];
+    // public $requiredPermissions = [
+    //     'yfktn.berikan_arahan.manajer',
+    //     'yfktn.berikan_arahan.penunjukan_personil'
+    // ];
 
     public function __construct()
     {
         parent::__construct();
         BackendMenu::setContext('Yfktn.BerikanArahan', 'main-menu-beriarah');
+
+        $rptArahan = new Rptnya($this);
+        $rptArahan->alias = 'rptnya';
+        $rptArahan->bindToController();
     }
 
     /**
@@ -80,5 +87,37 @@ class BerikanArahan extends Controller
             $fields['arahan']->disabled = true;
             $fields['deadline']->disabled = true;
         }
+    }
+
+    public function listExtendQuery($query)
+    {
+        if(!BackendAuth::getUser()->hasPermission(['yfktn.berikan_arahan.manajer'])) {
+            return $query->tampilkanDaftarArahanUntukOrangYangLoginIniSaja();
+        }
+        return $query;
+    }
+
+    public function relationExtendConfig($config, $field, $model)
+    {
+        if(BackendAuth::getUser()->hasPermission(['yfktn.berikan_arahan.manajer'])) {
+            return;
+        }
+        // Make sure the model and field matches those you want to manipulate
+        if (!$model instanceof ModelsBerikanArahan) { // || $field != 'myField')
+            return;
+        }
+
+        if(
+            !BackendAuth::getUser()->hasPermission(['yfktn.berikan_arahan.penunjukan_personil'])
+            ) {
+                if($field == 'personilDitugaskan') {
+                    // readonly saja untuk personil ditugaskan
+                    $config->readOnly = true;
+                } elseif($field == 'progressPenanganan') {
+                    $config->view['toolbarButtons'] = [
+                        'create' => 'Catatkan Progress'
+                    ];
+                }
+            }
     }
 }
