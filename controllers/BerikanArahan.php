@@ -4,7 +4,9 @@ use Backend\Classes\Controller;
 use BackendMenu;
 use BackendAuth;
 use Exception;
+use Event;
 use Illuminate\Support\Facades\Log;
+use PhpParser\Node\Stmt\Return_;
 use Yfktn\BerikanArahan\Models\BerikanArahan as ModelsBerikanArahan;
 use Yfktn\BerikanArahan\Widgets\Rptnya;
 
@@ -117,6 +119,9 @@ class BerikanArahan extends Controller
                     $config->view['toolbarButtons'] = [
                         'create' => 'Catatkan Progress'
                     ];
+                    $config->view['showCheckboxes'] = false;
+                    $config->view['recordOnClick'] = 'javascript:return false';
+                    // $config->view['recordUrl'] = 'yfktn/berikanarahan/pesan/preview/:id';
                 }
             }
     }
