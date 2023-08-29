@@ -12,8 +12,19 @@ columns:
         type: date
         format: d-m-Y
         sortable: true
-    status:
+    label_status:
         label: Status
         type: text
         searchable: true
+        sortable: false
+    created_at:
+        label: Tgl Dibuat
+        type: date
+        format: d-m-Y
+        invisible: true
+        sortable: true
+    updated_at:
+        label: Diperbaharui
+        type: date
+        format: d-m-Y H:i
         sortable: true

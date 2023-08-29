@@ -1,0 +1,12 @@
+scopes:
+  status:
+    label: Status
+    type: group
+    modelClass: Yfktn\BerikanArahan\Models\BerikanArahan
+    options: getStatusOptions
+    conditions: status in (:filtered)
+  tgl_deadline:
+    label: Deadline
+    type: daterange
+    conditions: created_at >= ':after' AND created_at <= ':before'
+    # ignoreTimezone: true

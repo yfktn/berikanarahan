@@ -8,8 +8,17 @@ use Event;
 use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Stmt\Return_;
 use Yfktn\BerikanArahan\Models\BerikanArahan as ModelsBerikanArahan;
+use Yfktn\BerikanArahan\Models\Pesan;
 use Yfktn\BerikanArahan\Widgets\Rptnya;
-
+use Yfktn\DiscussWidget\Widgets\DiscussWidget;
+/**
+ * Apabila haknya sebagai yfktn.berikan_arahan.manajer maka berhak untuk semua.
+ * Jika dia berhak untuk yfktn.berikan_arahan.penunjukan_personil maka berhak
+ * untuk memilih personil yang ingin dipilih sebagai bagian dari penyelesaian 
+ * tugas ini.
+ * 
+ * @package Yfktn\BerikanArahan\Controllers
+ */
 class BerikanArahan extends Controller
 {
     public $implement = [
@@ -36,6 +45,61 @@ class BerikanArahan extends Controller
         $rptArahan = new Rptnya($this);
         $rptArahan->alias = 'rptnya';
         $rptArahan->bindToController();
+
+        $discussWidget = new DiscussWidget($this);
+        $discussWidget->alias = 'discussWidget';
+        $discussWidget->bindToController();
+
+        \Event::listen('backend.form.extendFields', function ($widget) {
+            // Only for the User controller
+            if (!$widget->getController() instanceof BerikanArahan) {
+                return;
+            }
+        
+            // Only for the User model
+            if (!$widget->model instanceof Pesan) {
+                return;
+            }
+
+            if(\BackendAuth::getUser()->hasPermission(['yfktn.berikan_arahan.manajer'])) {
+                return;
+            }
+
+            if(!$widget->model->exists) {
+                return;
+            }
+    
+            if($widget->model->personil_id != BackendAuth::getUser()->id) {
+                $widget->fields['pesan']['disabled'] = true;
+                $pesanField = $widget->getField('pesan');
+                $pesanField->disabled = true;
+                $daftarDokumenLampiranField = $widget->getField('daftarDokumenLampiran');
+                $daftarDokumenLampiranField->disabled = true;
+                $widget->previewMode = true;
+                // \Log::info($pesanField);
+                // $widget->addFields([
+                //     'pesan' => [
+                //         'label'   => 'Keterangan',
+                //         'comment' => 'Ketikkan keterangan terkait progress penanganan terbaru.',
+                //         'type'    => 'richeditor',
+                //         'span'    => 'full',
+                //         'disabled'=> 'true',
+                //     ]
+                // ]);
+                // $fields->daftarDokumenLampiran->readOnly = true;
+            }
+        
+            // Add an extra birthday field
+        
+            // Remove a Surname field
+        });
+    }
+
+    public function update($recordId, $context = null)
+    {
+        $this->bodyClass = 'compact-container';
+        $this->widget->discussWidget->setOwner($recordId, ModelsBerikanArahan::class);
+        return $this->asExtension('FormController')->update($recordId, $context);
     }
 
     /**
@@ -120,7 +184,7 @@ class BerikanArahan extends Controller
                         'create' => 'Catatkan Progress'
                     ];
                     $config->view['showCheckboxes'] = false;
-                    $config->view['recordOnClick'] = 'javascript:return false';
+                    // $config->view['recordOnClick'] = 'javascript:return false';
                     // $config->view['recordUrl'] = 'yfktn/berikanarahan/pesan/preview/:id';
                 }
             }

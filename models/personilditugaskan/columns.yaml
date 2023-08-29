@@ -4,4 +4,26 @@ columns:
         type: text
         relation: personil
         searchable: true
-        select: concat(login, ' (', email, ')') 
+        select: 'concat(login, '' ('', email, '')'')'
+    created_at:
+        label: created_at
+        type: datetime
+        invisible: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        invisible: true
+    arahan_id:
+        label: arahan_id
+        type: number
+        searchable: false
+        invisible: true
+    tugas:
+        label: tugas
+        type: text
+        searchable: true
+    keterangan:
+        label: keterangan
+        type: text
+        searchable: true
+        invisible: true

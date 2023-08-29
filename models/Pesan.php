@@ -59,4 +59,23 @@ class Pesan extends Model
         }
         
     }
+
+    public function filterFields($fields, $context = null)
+    {
+        // untuk melakukan update pada tampilan di form supaya bisa mendisable beberapa 
+        // field maka di bagian BerikanArahan atau siapa saja yang menggunakan ini
+        // harus melakukan implementasi terhadap Event backend.form.extendFields
+        // coba lihat di BerikanArahan::__construct untuk contohnya.
+        // if(BackendAuth::getUser()->hasPermission(['yfktn.berikan_arahan.manajer'])) {
+        //     return true;
+        // }
+        // \Log::info('Disini lagi...' . $this->personil_id . ' - ' . BackendAuth::getUser()->id);
+
+        // if($this->personil_id != BackendAuth::getUser()->id) {
+        //     \Log::debug('adakah?' . $fields->pesan->value);
+        //     $fields->pesan->visible = true;
+        //     $fields->daftarDokumenLampiran->readOnly = true;
+        // }
+        
+    }
 }

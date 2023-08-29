@@ -1,0 +1,27 @@
+fields:
+    nama:
+        label: Nama
+        span: full
+        type: text
+        comment: 'Nama narahubungnya.'
+tabs:
+    fields:
+        hp:
+            label: HP
+            span: auto
+            type: text
+            comment: 'Nomor kontak hp/teleponnya.'
+            tab: Kontak
+        email:
+            label: Email
+            span: auto
+            type: text
+            comment: 'Alamat email jika ada.'
+            tab: Kontak
+        keterangan:
+            label: ''
+            size: small
+            span: full
+            type: textarea
+            comment: 'Ketikkan penjelasan singkat tentang siapa narahubung ini.'
+            tab: Keterangan

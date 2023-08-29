@@ -12,3 +12,9 @@
 1.0.5:
     - 'Updated table yfktn_berikanarahan_ tambahkan berdasarkan supaya bs langsung menggunakan opsi morph'
     - builder_table_update_yfktn_berikanarahan.php
+1.0.6:
+    - 'Created table yfktn_berikanarahan_narahubung'
+    - builder_table_create_yfktn_berikanarahan_narahubung.php
+1.0.7:
+    - 'Tambahkan keterangan tugas untuk personil, merubah table yfktn_berikanarahan_personil'
+    - builder_table_update_yfktn_berikanarahan_personil.php

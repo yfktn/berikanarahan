@@ -1,0 +1,13 @@
+<?php 
+// di sini akan melakukan disable pada tombol update
+// saat user yang login bukan merupakan si empunya nya
+?>
+
+<?php if($model->exists 
+    && !\BackendAuth::getUser()->hasPermission('yfktn.berikan_arahan.manajer') 
+    && $model->personil_id != \BackendAuth::getUser()->id): ?>
+    <script type="text/javascript">
+        // disable tombol update
+        document.querySelector("#Form-relationProgressPenangananManageForm-managePopup > form > div.modal-footer > button.btn.btn-primary").disabled = true
+    </script>
+<?php endif ?>

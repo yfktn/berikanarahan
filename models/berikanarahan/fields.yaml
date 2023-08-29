@@ -49,6 +49,24 @@ tabs:
                 - preview
             type: partial
             tab: Progress
+        narahubung:
+            span: full
+            path: $/yfktn/berikanarahan/models/berikanarahan/_load_narahubung.htm
+            context:
+                - update
+                - preview
+            type: partial
+            tab: Narahubung
+        daftarDokumenHasil:
+            span: auto
+            mode: file
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            type: fileupload
+            comment: 'Upload dokumen output hasil pekerjaan.'
+            tab: Dokumen Hasil
         status:
             permissions: yfktn.berikan_arahan.manajer
             span: full
@@ -56,7 +74,3 @@ tabs:
             default: guests
             tab: Status
             comment: Pilih status penanganan terhadap arahan ini.
-            options:
-                LAGI_PROSES: Lagi Proses
-                STATUS_SELESAI: Proses Selesai
-                STATUS_DITUTUP: Dihentikan

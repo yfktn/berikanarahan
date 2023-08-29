@@ -16,3 +16,6 @@ fields:
             extension: auto
         type: fileupload
         comment: 'Upload dokumen sebagai lampiran jika ada.'
+    _disable_update:
+        type: partial
+        path: $/yfktn/berikanarahan/models/pesan/_disable_update_btn.htm

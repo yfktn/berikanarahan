@@ -1,9 +1,24 @@
-fields:
-    personil_id:
-        label: 'Pilihan Personil'
-        emptyOption: 'Pilih Personil'
-        showSearch: true
-        span: full
-        type: dropdown
-        options: loadUserIdNya
-        comment: 'Pilih personil yang ditugaskan.'
+tabs:
+    fields:
+        personil_id:
+            # label: 'Pilihan Personil'
+            emptyOption: 'Pilih Personil'
+            showSearch: true
+            span: full
+            type: dropdown
+            options: loadUserIdNya
+            comment: 'Pilih personil yang ditugaskan.'
+            tab: Personil
+        tugas:
+            label: 'Tugas Personil'
+            span: full
+            type: text
+            comment: 'Tuliskan tugas personil ini dengan singkat.'
+            tab: Personil
+        keterangan:
+            label: ''
+            size: small
+            span: full
+            type: textarea
+            comment: 'Tambahkan keterangan jika dibutuhkan.'
+            tab: Keterangan

@@ -37,6 +37,14 @@ class BerikanArahan extends Model
             'Yfktn\BerikanArahan\Models\Pesan', 
             'key' => 'arahan_id'
         ],
+        'narahubung' => [
+            'Yfktn\BerikanArahan\Models\Narahubung', 
+            'key' => 'arahan_id'
+        ],
+    ];
+
+    public $attachMany = [
+        'daftarDokumenHasil' => 'System\Models\File'
     ];
 
     /**
@@ -77,9 +85,15 @@ class BerikanArahan extends Model
         return $hasil;
     }
 
-    public function loadPilihanStatusnya($value, $fieldName, $formData)
+    public function getStatusOptions()
     {
-        
+        return config('yfktn.berikanarahan::status');
+    }
+
+    public function getLabelStatusAttribute()
+    {
+        $a = $this->getStatusOptions();
+        return $a[$this->status] ?? '';
     }
 
     /**

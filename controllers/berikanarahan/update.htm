@@ -6,9 +6,10 @@
 <?php Block::endPut() ?>
 
 <?php if (!$this->fatalError): ?>
+    <?php Block::put('form-contents') ?>
 
     <?= Form::open([
-        'class' => 'layout', 
+        'class' => 'layout stretch', 
         'data-request-data' => 'arahan_id:' .$formModel->getKey()
         ]) ?>
 
@@ -18,40 +19,60 @@
 
         <div class="form-buttons">
             <div class="loading-indicator-container">
-                <button
-                    type="submit"
-                    data-request="onSave"
-                    data-request-data="redirect:0"
-                    data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
-                    class="btn btn-primary">
-                    <?= e(trans('backend::lang.form.save')) ?>
-                </button>
-                <button
-                    type="button"
-                    data-request="onSave"
-                    data-request-data="close:1"
-                    data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
-                    class="btn btn-default">
-                    <?= e(trans('backend::lang.form.save_and_close')) ?>
-                </button>
-                <button
-                    type="button"
-                    class="oc-icon-trash-o btn-icon danger pull-right"
-                    data-request="onDelete"
-                    data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
-                    data-request-confirm="<?= e(trans('backend::lang.form.confirm_delete')) ?>">
-                </button>
+                <?php if(
+                    $this->user->hasPermission(['yfktn.berikan_arahan.manajer']) ||
+                    $this->user->hasPermission(['yfktn.berikan_arahan.penunjukan_personil'])): ?>
+                    <button
+                        type="submit"
+                        data-request="onSave"
+                        data-request-data="redirect:0"
+                        data-hotkey="ctrl+s, cmd+s"
+                        data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                        class="btn btn-primary">
+                        <?= e(trans('backend::lang.form.save')) ?>
+                    </button>
+                    <button
+                        type="button"
+                        data-request="onSave"
+                        data-request-data="close:1"
+                        data-hotkey="ctrl+enter, cmd+enter"
+                        data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                        class="btn btn-default">
+                        <?= e(trans('backend::lang.form.save_and_close')) ?>
+                    </button>
+                    <button
+                        type="button"
+                        class="oc-icon-trash-o btn-icon danger pull-right"
+                        data-request="onDelete"
+                        data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
+                        data-request-confirm="<?= e(trans('backend::lang.form.confirm_delete')) ?>">
+                    </button>
 
-                <span class="btn-text">
-                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('yfktn/berikanarahan/berikanarahan') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
-                </span>
+                    <span class="btn-text">
+                        <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('yfktn/berikanarahan/berikanarahan') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                    </span>
+                <?php else: ?>
+                    <span class="btn-text">
+                        <a style="color: white" class="btn btn-info" href="<?= Backend::url('yfktn/berikanarahan/berikanarahan') ?>">
+                            <i class="icon-exclamation"></i> <?= e(trans('backend::lang.form.cancel')) ?>
+                        </a>
+                    </span>
+                <?php endif ?>
+
             </div>
         </div>
     <?= Form::close() ?>
+    <?= Block::endPut() ?>
 
 <?php else: ?>
     <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
     <p><a href="<?= Backend::url('yfktn/berikanarahan/berikanarahan') ?>" class="btn btn-default"><?= e(trans('backend::lang.form.return_to_list')) ?></a></p>
 <?php endif ?>
+
+<?php Block::put('form-sidebar') ?>
+    <?= $this->widget->discussWidget->render() ?>
+<?php Block::endPut() ?>
+
+<?php Block::put('body') ?>
+    <?= $this->makeLayout('form-with-sidebar') ?>
+<?php Block::endPut() ?>

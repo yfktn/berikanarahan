@@ -20,3 +20,15 @@ progressPenanganan:
     title: 'Catatkan Progress'
     form: $/yfktn/berikanarahan/models/pesan/fields.yaml
     list: $/yfktn/berikanarahan/models/pesan/columns.yaml
+narahubung:
+  label: 'Narahubung'
+  emptyMessage: 'Belum ada narahubung dimasukkan, atau arahan ini tidak membutuhkannya.'
+  view: 
+    list: $/yfktn/berikanarahan/models/narahubung/columns.yaml
+    toolbarButtons: 
+      create: 'Tambahkan Narahubung'
+      delete: 'Hapus Narahubung'
+  manage: 
+    title: 'Tambahkan Narahubung'
+    form: $/yfktn/berikanarahan/models/narahubung/fields.yaml
+    list: $/yfktn/berikanarahan/models/narahubung/columns.yaml
