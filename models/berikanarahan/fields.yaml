@@ -1,18 +1,3 @@
-fields:
-    berdasarkan_str:
-        label: 'Trigger Arahan'
-        showSearch: true
-        span: full
-        required: 1
-        options: loadPilihanTriggerNya
-        type: dropdown
-        comment: 'Pilih sumber arahan.'
-        placeholder: 'Sumber arahan'
-    _terpilih:
-        dependsOn: berdasarkan_str
-        span: full
-        path: $/yfktn/berikanarahan/models/berikanarahan/_berikan_tampilan_trigger_terpilih.htm
-        type: partial
 tabs:
     fields:
         arahan:
@@ -58,19 +43,34 @@ tabs:
             type: partial
             tab: Narahubung
         daftarDokumenHasil:
-            span: auto
             mode: file
             useCaption: true
             thumbOptions:
                 mode: crop
                 extension: auto
+            span: full
             type: fileupload
             comment: 'Upload dokumen output hasil pekerjaan.'
-            tab: Dokumen Hasil
+            tab: 'Dokumen Hasil'
         status:
             permissions: yfktn.berikan_arahan.manajer
             span: full
             type: radio
             default: guests
             tab: Status
-            comment: Pilih status penanganan terhadap arahan ini.
+            comment: 'Pilih status penanganan terhadap arahan ini.'
+fields:
+    berdasarkan_str:
+        label: 'Trigger Arahan'
+        showSearch: true
+        span: full
+        required: 1
+        options: loadPilihanTriggerNya
+        type: dropdown
+        comment: 'Pilih sumber arahan.'
+        placeholder: 'Sumber arahan'
+    _terpilih:
+        dependsOn: berdasarkan_str
+        span: full
+        path: $/yfktn/berikanarahan/models/berikanarahan/_berikan_tampilan_trigger_terpilih.htm
+        type: partial

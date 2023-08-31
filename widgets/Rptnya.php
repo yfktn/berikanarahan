@@ -1,6 +1,7 @@
 <?php namespace Yfktn\BerikanArahan\Widgets;
 
 use Backend\Classes\WidgetBase;
+use Yfktn\BerikanArahan\Classes\JumlahArahanBelumDiarahkan;
 use Yfktn\BerikanArahan\Models\BerikanArahan;
 
 class Rptnya extends WidgetBase
@@ -18,8 +19,6 @@ class Rptnya extends WidgetBase
 
     public function siapkanVariable()
     {
-        $ba = new BerikanArahan;
-        $pilihanTrigger = $ba->loadPilihanTriggerNya(null, '', '');
-        $this->vars['belumDiArahkan'] = count($pilihanTrigger);
+        $this->vars['belumDiArahkan'] = JumlahArahanBelumDiarahkan::getJumlah();
     }
 }

@@ -15,7 +15,4 @@ navigation:
     main-menu-beriarah:
         label: Pengarahan
         url: yfktn/berikanarahan/berikanarahan
-        icon: icon-bell
-        # permissions:
-        #     - yfktn.berikan_arahan.manajer
-        #     - yfktn.berikan_arahan.penunjukan_personil
+        icon: icon-compass
