@@ -10,3 +10,7 @@ scopes:
     type: daterange
     conditions: created_at >= ':after' AND created_at <= ':before'
     # ignoreTimezone: true
+  sumbernya:
+    label: Sumber
+    type: text
+    modelScope: sumberFilter

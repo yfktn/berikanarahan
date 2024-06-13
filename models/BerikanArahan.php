@@ -6,6 +6,8 @@ use Db;
 use Flash;
 use Illuminate\Support\Facades\Log;
 use ApplicationException;
+use Event;
+use Yfktn\BerikanArahan\Classes\ProsesLayananBelumDiarahkan;
 
 /**
  * Model
@@ -44,7 +46,7 @@ class BerikanArahan extends Model
     ];
 
     public $attachMany = [
-        'daftarDokumenHasil' => 'System\Models\File'
+        'daftarDokumenHasil' => ['System\Models\File', 'public' => false]
     ];
 
     /**
@@ -55,14 +57,29 @@ class BerikanArahan extends Model
         'berdasarkan_str' => 'required'
     ];
 
+    public function loadPilihanTriggerNya($value, $fieldName, $formData)
+    {
+        $prosesBelumDiarahkan = (new ProsesLayananBelumDiarahkan)->getProsesLayananBelumDiarahkan();
+
+        if(!is_null($value)) { // bila ini adalah data yang tidak baru!
+            // dapatkan yang terpilih
+            [ $theid, $themodel ] = explode("|", $value);
+            $obj = (new $themodel)->find($theid);
+            $prosesBelumDiarahkan[$value] = $obj == null? 'UNDEFINED TRIGGER RECORD!': $obj->getLabel();
+        }
+
+        return $prosesBelumDiarahkan;
+    }
+
     /**
      * Lakukan loading terhadap pilihan item yang menjadi trigger munculnya arahan.
      * Di sini ada untuk SuratMasuk, PermintaanLayanan
+     * @deprecated sudah diganti dengan metode event!
      * @param mixed $fieldName 
      * @param mixed $value 
      * @param mixed $formData 
      */
-    public function loadPilihanTriggerNya($value, $fieldName, $formData)
+    public function loadPilihanTriggerNyaOld($value, $fieldName, $formData)
     {
         $sumberTriggerSql = config('yfktn.berikanarahan::sumber_trigger');
         if(count($sumberTriggerSql) <= 0) {
@@ -124,5 +141,22 @@ class BerikanArahan extends Model
         return $query->whereHas('personilDitugaskan', function($query) use($loggedUserId) {
             $query->where('personil_id', $loggedUserId);
         });
+    }
+
+    /**
+     * Ini untuk melakukan filter berdasarkan sumber!
+     * @param mixed $query 
+     * @param mixed $scope 
+     * @return void 
+     */
+    public function scopeSumberFilter($query, $scope)
+    {
+        $results = Event::fire('yfktn.berikanarahan.layananpencariantrigger', [$scope->condition, $scope->value]);
+        $results = array_filter($results);
+        $ids = [];
+        foreach($results as $r) {
+            $ids = array_merge($ids, $r);
+        }
+        return $query->whereIn('id', $ids);
     }
 }

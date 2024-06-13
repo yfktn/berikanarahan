@@ -4,7 +4,8 @@ columns:
         type: text
         relation: personil
         searchable: true
-        select: 'concat(login, '' ('', email, '')'')'
+        select: login
+        #select: 'concat(login, '' ('', email, '')'')'
     created_at:
         label: created_at
         type: datetime

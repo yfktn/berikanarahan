@@ -1,8 +1,12 @@
 <?php namespace Yfktn\BerikanArahan\Models;
 
+use Backend\Facades\BackendAuth;
 use Model;
 use Db;
 use Illuminate\Support\Facades\Log;
+use Yfktn\BerikanArahan\Classes\FonntePemberianArahan;
+use Yfktn\ToolsKu\Classes\Traits\RevisionableWithCreate;
+use Yfktn\ToolsKu\Classes\Traits\RevisionTriggerNotification;
 
 /**
  * Model
@@ -10,7 +14,16 @@ use Illuminate\Support\Facades\Log;
 class PersonilDitugaskan extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use RevisionableWithCreate;
+    use RevisionTriggerNotification;
+
+    protected $revisionTriggerFields = [
+        'personil_id' => [FonntePemberianArahan::class, 'personilDipilih'],
+        'createdHandlerAction' => [FonntePemberianArahan::class, 'personilDipilih'],
+        // 'deletedHandlerAction' => [FonntePemberianArahan::class, 'personilDikeluarkan'],
+    ];
     
+    protected $revisionable = ['personil_id'];
 
     /**
      * @var string The database table used by the model.
@@ -29,6 +42,15 @@ class PersonilDitugaskan extends Model
         'arahan' => ['Yfktn\BerikanArahan\Models\BerikanArahan', 'key' => 'arahan_id'],
         'personil' => ['Backend\Models\User', 'key' => 'personil_id']
     ];
+
+    public $morphMany = [
+        'revision_history' => [\System\Models\Revision::class, 'name' => 'revisionable']
+    ];
+
+    public function getRevisionableUser()
+    {
+        return BackendAuth::getUser()->id;
+    }
 
     /**
      * Jangan tampilkan yang sudah dipilih!

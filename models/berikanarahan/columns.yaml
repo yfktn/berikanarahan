@@ -2,6 +2,7 @@ columns:
     berdasarkan_id:
         label: Sumber
         type: partial
+        searchable: false
         path: $/yfktn/berikanarahan/models/berikanarahan/_tampilkan_label_sumber_di_kolom.htm
     arahan:
         label: Arahan
@@ -12,9 +13,10 @@ columns:
         type: date
         format: d-m-Y
         sortable: true
-    label_status:
+    status:
         label: Status
         type: text
+        displayFrom: label_status
         searchable: true
         sortable: false
     created_at:

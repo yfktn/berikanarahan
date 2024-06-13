@@ -1,6 +1,7 @@
 <?php namespace Yfktn\BerikanArahan\Controllers;
 
 use Backend\Classes\Controller;
+use Backend\Facades\Backend;
 use BackendMenu;
 use BackendAuth;
 use Exception;
@@ -50,48 +51,39 @@ class BerikanArahan extends Controller
         $discussWidget->alias = 'discussWidget';
         $discussWidget->bindToController();
 
-        \Event::listen('backend.form.extendFields', function ($widget) {
-            // Only for the User controller
-            if (!$widget->getController() instanceof BerikanArahan) {
-                return;
-            }
-        
-            // Only for the User model
-            if (!$widget->model instanceof Pesan) {
+        \Event::listen('backend.list.overrideRecordAction', function ($listWidget, $record, $url, $onClick) {
+
+            if(!$listWidget->getController() instanceof BerikanArahan) {
                 return;
             }
 
-            if(\BackendAuth::getUser()->hasPermission(['yfktn.berikan_arahan.manajer'])) {
+            if(!$record instanceof Pesan) {
                 return;
             }
 
-            if(!$widget->model->exists) {
+            if(BackendAuth::getUser()->hasPermission(['yfktn.berikan_arahan.manajer'])) {
                 return;
             }
-    
-            if($widget->model->personil_id != BackendAuth::getUser()->id) {
-                $widget->fields['pesan']['disabled'] = true;
-                $pesanField = $widget->getField('pesan');
-                $pesanField->disabled = true;
-                $daftarDokumenLampiranField = $widget->getField('daftarDokumenLampiran');
-                $daftarDokumenLampiranField->disabled = true;
-                $widget->previewMode = true;
-                // \Log::info($pesanField);
-                // $widget->addFields([
-                //     'pesan' => [
-                //         'label'   => 'Keterangan',
-                //         'comment' => 'Ketikkan keterangan terkait progress penanganan terbaru.',
-                //         'type'    => 'richeditor',
-                //         'span'    => 'full',
-                //         'disabled'=> 'true',
-                //     ]
-                // ]);
-                // $fields->daftarDokumenLampiran->readOnly = true;
+            
+            $previewUrl = sprintf(
+                "$.oc.relationBehavior.clickViewListRecord('%s', '%s', '%s', '%s')",
+                $record->id,
+                $this->relationGetId(),
+                $this->relationGetSessionKey(),
+                'huge'
+            );
+
+            if($record->personil_id != BackendAuth::getUser()->id) {
+                // return ['clickable' => false];
+                // return ['onclick' => $previewUrl, 'url' => null];
+                return [
+                    'onclick' => 'return false',
+                    'url' => null, // Backend::url('yfktn/berikanarahan/pesan/preview/' . $record->id)
+                ];
             }
-        
-            // Add an extra birthday field
-        
-            // Remove a Surname field
+            // if ($record->user_id !== BackendAuth::getUser()->id) {
+            //     return 'acme/blog/posts/preview/' . $record->id;
+            // }
         });
     }
 
@@ -116,6 +108,7 @@ class BerikanArahan extends Controller
      * Tampilkan informasi yang menjadi sumber referensi adanya arahan.
      * Pastikan bahwa model yang dijadikan sebagai sumber referensi melakukan
      * implementasi terhadap InterfaceTampilanSingkatTrigger!
+     * @deprecated ini sudah tidak digunakan lagi karena sudah di render langsung di _berikan_tampilan_trigger
      * @return mixed 
      * @throws Exception 
      */
@@ -150,8 +143,8 @@ class BerikanArahan extends Controller
     {
         if(!$this->user->hasAccess('yfktn.berikan_arahan.manajer')) {
             $fields['berdasarkan_str']->disabled = true;
-            $fields['arahan']->disabled = true;
-            $fields['deadline']->disabled = true;
+            $fields['arahan']->readOnly = true;
+            $fields['deadline']->readOnly = true;
         }
     }
 
@@ -175,18 +168,24 @@ class BerikanArahan extends Controller
 
         if(
             !BackendAuth::getUser()->hasPermission(['yfktn.berikan_arahan.penunjukan_personil'])
-            ) {
-                if($field == 'personilDitugaskan') {
-                    // readonly saja untuk personil ditugaskan
-                    $config->readOnly = true;
-                } elseif($field == 'progressPenanganan') {
-                    $config->view['toolbarButtons'] = [
-                        'create' => 'Catatkan Progress'
-                    ];
-                    $config->view['showCheckboxes'] = false;
-                    // $config->view['recordOnClick'] = 'javascript:return false';
-                    // $config->view['recordUrl'] = 'yfktn/berikanarahan/pesan/preview/:id';
-                }
+        ) {
+            if($field == 'personilDitugaskan') {
+                $config->readOnly = true; // harus dipanggil terpisah
+                // $config->view['toolbarButtons'] = [];
+                // $config->view['recordOnClick'] = 'javascript:return false';
+                // $config->view['recordUrl'] = 'yfktn/berikanarahan/pesan/preview/:id';
+                // readonly saja untuk personil ditugaskan
+                // $config->readOnly = true;
+                // dd($config);
+            } else { // if($field == 'progressPenanganan') {
+                $config->readOnly = false; // masing-masing
+                $config->view['toolbarButtons'] = ['create'];
+                $config->view['showCheckboxes'] = false;
+            //     // $config->view['recordOnClick'] = 'javascript:return false';
+            //     // $config->view['recordUrl'] = 'yfktn/berikanarahan/pesan/preview/:id';
             }
+        }
+
+
     }
 }

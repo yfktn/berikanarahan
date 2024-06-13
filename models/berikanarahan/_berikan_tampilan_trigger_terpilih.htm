@@ -1,32 +1,46 @@
-<script>
-function onClickBo() {
-    let value = "";
-    if(document.getElementById('Form-field-BerikanArahan-berdasarkan_str') != null) {
-        value = document.getElementById('Form-field-BerikanArahan-berdasarkan_str').value;
-    } else if(document.querySelector('input[name="BerikanArahan[berdasarkan_str]"]') != null) {
-        value = document.querySelector('input[name="BerikanArahan[berdasarkan_str]"]').value;
-    }
-    
-    if(value == "") {
-        // belum ada yang terpilih
-        alert("Tidak ada data terpilih!");
-        return;
-    }
-    const urlValue = value.split("|");
-    // const backendUrl = "<?= config('cms.backendUri') ?>",
-    //     url = "/" + backendUrl + "/yfktn/berikanarahan/informasitriggerarahanterpilih/tampilkan/" 
-    //         + urlValue[0] + "/" + urlValue[1];
-    // window.open(url, "_blank");
-    $('a#tampilkanInformasiTrigger').popup({
-        handler: 'onTampilkanInformasiTrigger',
-        size: 'large',
-        extraData: {
-            idnya: urlValue[0],
-            modelnya: urlValue[1]
-        }
-    });
-}
-</script>
-<a class="btn btn-small btn-info" onclick="onClickBo()" id="tampilkanInformasiTrigger" href="#">
-    Tampilkan <strong>informasi</strong> trigger arahan terpilih!
-</a>
+
+<?php if(empty($model->berdasarkan_str)): ?>
+    <div class="alert alert-danger" role="alert">
+        Menunggu pilihan trigger terpilih!
+    </div>
+<?php else: ?>
+    <div class="card border-primary bg-light p-1">
+        <div class="card-header">
+            Sumber Arahan
+        </div>
+        <div class="card-body p-0">
+            <table class="table-success table-sm">
+                <tbody>
+                    <?php 
+                    [$modelId, $modelClass] = explode('|', $model->berdasarkan_str);
+                    $record = (new $modelClass)->find($modelId);
+                    try {
+                        if($record == null) {
+                            \Log::error('Model terpilih tidak ditemukan! modelid: ' . $modelId . ' modelclass: ' . $modelClass);
+                            throw new Exception('Model terpilih tidak ditemukan!');
+                        }
+                        $tampilSingkat = $record->getArrayAssocTampilanSingkat();
+                        foreach($tampilSingkat as $label=>$nilai): ?>
+                        <tr>
+                            <td><?= $label ?></td>
+                            <?php if(is_array($nilai)): ?>
+                                <td><?= implode("<br>", $nilai) ?></td>
+                            <?php else: ?>
+                                <td><?= Html::clean($nilai) ?></td>
+                            <?php endif; ?>
+                        </tr>
+                        <?php endforeach;
+                    } catch(\Exception $e) {
+                        ?>
+                        <tr><td colspan="2">                      
+                            <div class="alert alert-danger" role="alert">
+                                Model terpilih tidak mengimplementasikan label untuk fungsi layanan pemberian arahan!
+                            </div>
+                        </td></tr>
+                        <?php
+                    } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php endif ?>

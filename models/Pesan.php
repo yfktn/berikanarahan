@@ -30,7 +30,7 @@ class Pesan extends Model
     ];
 
     public $attachMany = [
-        'daftarDokumenLampiran' => 'System\Models\File'
+        'daftarDokumenLampiran' => ['System\Models\File', 'public' => false]
     ];
 
     public function beforeCreate()
@@ -58,6 +58,18 @@ class Pesan extends Model
             return false;
         }
         
+    }
+
+    public function getLabelNamaAttribute()
+    {
+        $user = $this->personil;
+        $label = implode(' ', [
+            $user->first_name,
+            $user->last_name
+        ]);
+        return empty(trim($label)) ? 
+            '(@' . $user->login .')': 
+            $label;
     }
 
     public function filterFields($fields, $context = null)

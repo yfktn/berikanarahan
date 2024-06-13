@@ -1,8 +1,10 @@
 <?php namespace Yfktn\BerikanArahan\Widgets;
 
 use Backend\Classes\WidgetBase;
-use Yfktn\BerikanArahan\Classes\JumlahArahanBelumDiarahkan;
+use Yfktn\BerikanArahan\Classes\ProsesLayananBelumDiarahkan;
+use Yfktn\BerikanArahan\Classes\RekapPerstatusan;
 use Yfktn\BerikanArahan\Models\BerikanArahan;
+use Yfktn\BerikanArahan\ReportWidgets\RekapanStatus;
 
 class Rptnya extends WidgetBase
 {
@@ -19,6 +21,7 @@ class Rptnya extends WidgetBase
 
     public function siapkanVariable()
     {
-        $this->vars['belumDiArahkan'] = JumlahArahanBelumDiarahkan::getJumlah();
+        $this->vars['belumDiArahkan'] = (new ProsesLayananBelumDiarahkan)->getJumlahBelumDiarahkan();
+        $this->vars['berproses'] = (new RekapPerstatusan())->getJumlahStatusLagiProses();
     }
 }

@@ -1,5 +1,11 @@
 tabs:
     fields:
+        _terpilih:
+            dependsOn: berdasarkan_str
+            span: full
+            path: $/yfktn/berikanarahan/models/berikanarahan/_berikan_tampilan_trigger_terpilih.htm
+            type: partial
+            tab: 'Arahan'
         arahan:
             label: 'Arahan Utama'
             size: small
@@ -49,6 +55,9 @@ tabs:
                 mode: crop
                 extension: auto
             span: full
+            context:
+                - update
+                - preview
             type: fileupload
             comment: 'Upload dokumen output hasil pekerjaan.'
             tab: 'Dokumen Hasil'
@@ -69,8 +78,3 @@ fields:
         type: dropdown
         comment: 'Pilih sumber arahan.'
         placeholder: 'Sumber arahan'
-    _terpilih:
-        dependsOn: berdasarkan_str
-        span: full
-        path: $/yfktn/berikanarahan/models/berikanarahan/_berikan_tampilan_trigger_terpilih.htm
-        type: partial

@@ -11,8 +11,13 @@ permissions:
     yfktn.berikan_arahan.penunjukan_personil:
         tab: 'Pemberian Arahan'
         label: 'Memilih Personil Untuk Menyelesaikan'
+    yfktn.berikan_arahan.personil:
+        tab: 'Pemberian Arahan'
+        label: 'User ini dapat ditugaskan sebagai personil'
 navigation:
     main-menu-beriarah:
         label: Pengarahan
         url: yfktn/berikanarahan/berikanarahan
+        permissions:
+            - yfktn.berikan_arahan.*
         icon: icon-compass

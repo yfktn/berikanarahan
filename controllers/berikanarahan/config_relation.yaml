@@ -2,9 +2,10 @@ personilDitugaskan:
   label: 'Personil Ditugaskan'
   view: 
     list: $/yfktn/berikanarahan/models/personilditugaskan/columns.yaml
-    toolbarButtons: 
-      create: 'Tambahkan Personil Ditugaskan'
-      delete: 'Hapus Personil'
+    toolbarButtons: create|delete
+  customMessages:
+    buttonCreate: 'Tambahkan Personil Ditugaskan'
+    buttonDelete: 'Hapus Personil'
   manage: 
     form: $/yfktn/berikanarahan/models/personilditugaskan/fields.yaml
     list: $/yfktn/berikanarahan/models/personilditugaskan/columns.yaml
@@ -13,9 +14,10 @@ progressPenanganan:
   emptyMessage: 'Belum ada progress ...'
   view: 
     list: $/yfktn/berikanarahan/models/pesan/columns.yaml
-    toolbarButtons: 
-      create: 'Catatkan Progress'
-      delete: 'Hapus Progress'
+    toolbarButtons: create|delete
+  customMessages: 
+    buttonCreate: 'Catatkan Progress'
+    buttonDelete: 'Hapus Progress'
   manage: 
     title: 'Catatkan Progress'
     form: $/yfktn/berikanarahan/models/pesan/fields.yaml
@@ -25,9 +27,10 @@ narahubung:
   emptyMessage: 'Belum ada narahubung dimasukkan, atau arahan ini tidak membutuhkannya.'
   view: 
     list: $/yfktn/berikanarahan/models/narahubung/columns.yaml
-    toolbarButtons: 
-      create: 'Tambahkan Narahubung'
-      delete: 'Hapus Narahubung'
+    toolbarButtons: create|delete
+  customMessages:
+    buttonCreate: 'Tambahkan Narahubung'
+    buttonDelete: 'Hapus Narahubung'
   manage: 
     title: 'Tambahkan Narahubung'
     form: $/yfktn/berikanarahan/models/narahubung/fields.yaml

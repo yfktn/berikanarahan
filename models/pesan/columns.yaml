@@ -5,10 +5,15 @@ columns:
         path: $/yfktn/berikanarahan/models/pesan/_tampilkan_pesan.htm
         sortable: false
         searchable: true
-    personil_nya:
+    # personil_nya:
+    #     label: Personil
+    #     relation: personil
+    #     select: concat(first_name, ' ', last_name , ' (', login, ')')
+        #select: concat(login, ' (', email, ')') 
+    label_nama:
         label: Personil
-        relation: personil
-        select: concat(login, ' (', email, ')') 
+        type: text
+        sortable: false
     created_at:
         label: Dibuat
         type: datetime
